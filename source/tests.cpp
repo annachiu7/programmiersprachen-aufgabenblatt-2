@@ -2,6 +2,7 @@
 #include <catch.hpp>
 #include "vec2.hpp"
 #include "mat2.hpp"
+#include <cmath>
 
 TEST_CASE("describe_vec2","[create_vec2]") 
 { 
@@ -17,34 +18,29 @@ TEST_CASE("describe_vec2_andoperator","[operator_vec2]")
 { 
 	Vec2 v1{1.0f, 1.0f};
 	Vec2 v2{2.0f, 1.0f};
-	Vec2 v3 = v1+=(v2);
-	REQUIRE(v3.x == Approx(3.0f)); 
-	REQUIRE(v3.y == Approx(2.0f)); 
-	Vec2 v3_2 = v3+=(v2);
-	REQUIRE(v3_2.x == Approx(5.0f)); 
-	REQUIRE(v3_2.y == Approx(3.0f)); 
+	v1+=(v2);
+	REQUIRE(v1.x == Approx(3.0f)); 
+	REQUIRE(v1.y == Approx(2.0f)); 
+	v1+=(v2);
+	REQUIRE(v1.x == Approx(5.0f)); 
+	REQUIRE(v1.y == Approx(3.0f)); 
 
-	Vec2 v4 = v1-=(v2);
-	REQUIRE(v4.x == Approx(-1.0f)); 
-	REQUIRE(v4.y == Approx(0.0f));
-	Vec2 v4_2 = v3-=(v2);
-	REQUIRE(v4_2.x == Approx(1.0f)); 
-	REQUIRE(v4_2.y == Approx(1.0f));
+	v1-=(v2);
+	REQUIRE(v1.x == Approx(3.0f)); 
+	REQUIRE(v1.y == Approx(2.0f)); 
+	v1-=(v2);
+	REQUIRE(v1.x == Approx(1.0f)); 
+	REQUIRE(v1.y == Approx(1.0f)); 
 
-	float v = 3.0f;
-	Vec2 v5 = v2*=(v);
-	REQUIRE(v5.x == Approx(6.0f)); 
-	REQUIRE(v5.y == Approx(3.0f)); 
-	Vec2 v5_2 = v1*=(v);
-	REQUIRE(v5_2.x == Approx(3.0f)); 
-	REQUIRE(v5_2.y == Approx(3.0f)); 
+	float v=0.0f;
+	v1*=v;
+	REQUIRE(v1.x == Approx(0.0f)); 
+	REQUIRE(v1.y == Approx(0.0f)); 
 
-	Vec2 v6 = v5/=(v);
-	REQUIRE(v6.x == Approx(2.0f)); 
-	REQUIRE(v6.y == Approx(1.0f)); 
-	Vec2 v6_2 = v5_2/=(v);
-	REQUIRE(v6_2.x == Approx(1.0f)); 
-	REQUIRE(v6_2.y == Approx(1.0f)); 
+	float s=1.0f;
+	v2/=s; 
+	REQUIRE(v2.x == Approx(2.0f)); 
+	REQUIRE(v2.y == Approx(1.0f)); 
 } 
 
 TEST_CASE("describe_vec2_operator","[opr_vec2]") 
@@ -88,71 +84,130 @@ TEST_CASE("describe_vec2_operator","[opr_vec2]")
 TEST_CASE("describe_mat2","[create_mat2]") 
 { 
 	Mat2 m_einheit;
-	Mat2 m1{1,1,1,1};
-	Mat2 m2{1,2,3,4};
-	REQUIRE(m1.a1 == 1); 
-	REQUIRE(m1.a2 == 1); 
-	REQUIRE(m1.b1 == 1);
-	REQUIRE(m1.b2 == 1); 
-	REQUIRE(m_einheit.a1 == 1); 
-	REQUIRE(m_einheit.a2 == 0); 
-	REQUIRE(m_einheit.b1 == 0);
-	REQUIRE(m_einheit.b2 == 1); 
-	REQUIRE(m2.a1 == 1); 
-	REQUIRE(m2.a2 == 2); 
-	REQUIRE(m2.b1 == 3);
-	REQUIRE(m2.b2 == 4); 
+	Mat2 m1{1.0f,1.0f,1.0f,1.0f};
+	Mat2 m2{1.0f,2.0f,3.0f,4.0f};
+	REQUIRE(m1.a == 1.0f); 
+	REQUIRE(m1.b == 1.0f); 
+	REQUIRE(m1.c == 1.0f);
+	REQUIRE(m1.d == 1.0f); 
+	REQUIRE(m_einheit.a == 1.0f); 
+	REQUIRE(m_einheit.b == 0.0f); 
+	REQUIRE(m_einheit.c == 0.0f);
+	REQUIRE(m_einheit.d == 1.0f); 
+	REQUIRE(m2.a == 1.0f); 
+	REQUIRE(m2.b == 2.0f); 
+	REQUIRE(m2.c == 3.0f);
+	REQUIRE(m2.d == 4.0f); 
 }
 
 TEST_CASE("describe_mult_mrf_mat2","[mult_mrf_mat2]") 
 { 
 	Mat2 m_einheit;
-	Mat2 m1{1,1,1,1};
-	Mat2 m2 = m1*=m_einheit;
-	REQUIRE(m2.a1 == 1); 
-	REQUIRE(m2.a2 == 1); 
-	REQUIRE(m2.b1 == 1); 
-	REQUIRE(m2.b2 == 1); 
-	Mat2 m3 = m_einheit*=m1;
-	REQUIRE(m3.a1 == 1); 
-	REQUIRE(m3.a2 == 1); 
-	REQUIRE(m3.b1 == 1); 
-	REQUIRE(m3.b2 == 1); 
-	Mat2 m4 = m1*=m1;
-	REQUIRE(m4.a1 == 2); 
-	REQUIRE(m4.a2 == 2); 
-	REQUIRE(m4.b1 == 2); 
-	REQUIRE(m4.b2 == 2); 
+	Mat2 m1{1.0f,1.0f,1.0f,1.0f};
+	m1*=m_einheit;
+	REQUIRE(m1.a == 1.0f); 
+	REQUIRE(m1.b == 1.0f); 
+	REQUIRE(m1.c == 1.0f); 
+	REQUIRE(m1.d == 1.0f); 
+	m1*=m1;
+	REQUIRE(m1.a == 2.0f); 
+	REQUIRE(m1.b == 2.0f); 
+	REQUIRE(m1.c == 2.0f); 
+	REQUIRE(m1.d == 2.0f); 
 }
 
 
 TEST_CASE("describe_mult_mat2","[mult_mat2]") 
 { 
 	Mat2 m_einheit;
-	Mat2 m1{1,1,1,1};
-	Mat2 m2{1,2,3,4};
+	Mat2 m1{1.0f,1.0f,1.0f,1.0f};
+	Mat2 m2{1.0f,2.0f,3.0f,4.0f};
 	Mat2 m3 = m_einheit * m1;
-	REQUIRE(m3.a1 == 1); 
-	REQUIRE(m3.a2 == 1); 
-	REQUIRE(m3.b1 == 1); 
-	REQUIRE(m3.b2 == 1); 
+	REQUIRE(m3.a == 1.0f); 
+	REQUIRE(m3.b == 1.0f); 
+	REQUIRE(m3.c == 1.0f); 
+	REQUIRE(m3.d == 1.0f); 
 	Mat2 m4 = m_einheit * m2;
-	REQUIRE(m4.a1 == 1); 
-	REQUIRE(m4.a2 == 2); 
-	REQUIRE(m4.b1 == 3); 
-	REQUIRE(m4.b2 == 4); 
+	REQUIRE(m4.a == 1.0f); 
+	REQUIRE(m4.b == 2.0f); 
+	REQUIRE(m4.c == 3.0f); 
+	REQUIRE(m4.d == 4.0f); 
 	Mat2 m5 = m1 * m2;
-	REQUIRE(m5.a1 == 4); 
-	REQUIRE(m5.a2 == 6); 
-	REQUIRE(m5.b1 == 4); 
-	REQUIRE(m5.b2 == 6); 
+	REQUIRE(m5.a == 4.0f); 
+	REQUIRE(m5.b == 6.0f); 
+	REQUIRE(m5.c == 4.0f); 
+	REQUIRE(m5.d == 6.0f); 
 	Mat2 m6 = m2 * m1;
-	REQUIRE(m6.a1 == 3); 
-	REQUIRE(m6.a2 == 3); 
-	REQUIRE(m6.b1 == 7); 
-	REQUIRE(m6.b2 == 7); 
+	REQUIRE(m6.a == 3.0f); 
+	REQUIRE(m6.b == 3.0f); 
+	REQUIRE(m6.c == 7.0f); 
+	REQUIRE(m6.d == 7.0f); 
 }
 
+TEST_CASE("describe_mat2_mult_vec2","[mat2_mult_vec2]") 
+{ 
+	Mat2 m_einheit;
+	Mat2 m1{1.0f,1.0f,1.0f,1.0f};
+	Vec2 v1{1.0f, 1.0f};
+	Vec2 v2 = m_einheit*v1;
+	REQUIRE(v2.x == Approx(1.0f)); 
+	REQUIRE(v2.y == Approx(1.0f)); 
+	Vec2 v3 = m1*v1;
+	REQUIRE(v3.x == Approx(2.0f)); 
+	REQUIRE(v3.y == Approx(2.0f)); 
+} 
+
+TEST_CASE("describe_inverse_mat","[mat2_inverse]") 
+{ 
+	Mat2 m_einheit;
+	Mat2 m1{2.0f,5.0f,1.0f,3.0f};
+	Mat2 m2{1,1,1,1};
+	REQUIRE(inverse(m_einheit).a == Approx(1.0f)); 
+	REQUIRE(inverse(m_einheit).b == Approx(0.0f)); 
+	REQUIRE(inverse(m_einheit).c == Approx(0.0f)); 
+	REQUIRE(inverse(m_einheit).d == Approx(1.0f)); 
+	REQUIRE(inverse(m1).a == Approx(3.0f)); 
+	REQUIRE(inverse(m1).b == Approx(-5.0f)); 
+	REQUIRE(inverse(m1).c == Approx(-1.0f)); 
+	REQUIRE(inverse(m1).d == Approx(2.0f)); 
+	REQUIRE(inverse(m2).a == Approx(0)); 
+	REQUIRE(inverse(m2).b == Approx(0)); 
+	REQUIRE(inverse(m2).c == Approx(0)); 
+	REQUIRE(inverse(m2).d == Approx(0)); 
+} 
+
+TEST_CASE("describe_mat2_transpose","[mat2_trans]") 
+{ 
+	Mat2 m_einheit;
+	Mat2 m1{-1.0f,2.0f,3.0f,4.0f};
+	REQUIRE(transpose(m_einheit).a == Approx(1)); 
+	REQUIRE(transpose(m_einheit).b == Approx(0)); 
+	REQUIRE(transpose(m_einheit).c == Approx(0)); 
+	REQUIRE(transpose(m_einheit).d == Approx(1)); 
+	REQUIRE(transpose(m1).a == Approx(-1)); 
+	REQUIRE(transpose(m1).b == Approx(3)); 
+	REQUIRE(transpose(m1).c == Approx(2)); 
+	REQUIRE(transpose(m1).d == Approx(4)); 
+} 
+
+TEST_CASE("describe_mat2_rotation","[mat2_rotation]") 
+{ 
+	Mat2 m = make_rotation_mat2(M_PI/2);
+	REQUIRE(m.a == Approx(0)); 
+	REQUIRE(m.b == Approx(-1)); 
+	REQUIRE(m.c == Approx(1)); 
+	REQUIRE(m.d == Approx(0)); 
+	Mat2 m1 = make_rotation_mat2(M_PI);
+	REQUIRE(m1.a == Approx(-1)); 
+	REQUIRE(m1.b == Approx(0)); 
+	REQUIRE(m1.c == Approx(0)); 
+	REQUIRE(m1.d == Approx(-1)); 
+	Mat2 m2 = make_rotation_mat2(M_PI/6);
+	REQUIRE(m2.a == Approx(0.86603f)); 
+	REQUIRE(m2.b == Approx(-0.5)); 
+	REQUIRE(m2.c == Approx(0.5)); 
+	REQUIRE(m2.d == Approx(0.86603f)); 
+} 
 
 int main(int argc, char *argv[])
 {
