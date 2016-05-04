@@ -4,7 +4,8 @@ add_executable(example
   glew.c
   example.cpp
   vec2.cpp
-  mat2.cpp)
+  mat2.cpp
+  color.cpp)
 target_link_libraries(example
   glfw
   ${GLFW_LIBRARIES}
@@ -15,7 +16,8 @@ add_dependencies(example glfw ${COPY_BINARY})
 add_executable(tests
   tests.cpp
   vec2.cpp
-  mat2.cpp)
+  mat2.cpp
+  color.cpp)
 target_link_libraries(tests
   ${GLFW_LIBRARIES})
 
