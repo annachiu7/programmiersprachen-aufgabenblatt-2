@@ -3,6 +3,8 @@
 #include "vec2.hpp"
 #include "mat2.hpp"
 #include <cmath>
+#include "circle.hpp"
+#include "rectangle.hpp"
 
 TEST_CASE("describe_vec2","[create_vec2]") 
 { 
@@ -208,6 +210,51 @@ TEST_CASE("describe_mat2_rotation","[mat2_rotation]")
 	REQUIRE(m2.c == Approx(0.5)); 
 	REQUIRE(m2.d == Approx(0.86603f)); 
 } 
+
+TEST_CASE("describe_circle","[create_circle]") 
+{ 
+	Circle c{5};
+	Circle clr{1,1,3};
+	REQUIRE(c.get_x_position() == Approx(0.0)); 
+	REQUIRE(c.get_y_position() == Approx(0.0)); 
+	REQUIRE(c.get_radius() == Approx(5.0)); 
+	REQUIRE(clr.get_x_position() == Approx(1.0)); 
+	REQUIRE(clr.get_y_position() == Approx(1.0)); 
+	REQUIRE(clr.get_radius() == Approx(3.0)); } 
+
+TEST_CASE("describe_rectangle","[create_rectangle]") 
+{ 
+	Rectangle rec{5, 8};
+	Rectangle rec2{-3, 7, 4, 6};
+	REQUIRE(rec.get_x_start() == Approx(0)); 
+	REQUIRE(rec.get_y_start() == Approx(0)); 
+	REQUIRE(rec.get_width() == Approx(5)); 
+	REQUIRE(rec.get_height() == Approx(8)); 
+	REQUIRE(rec2.get_x_start() == Approx(-3)); 
+	REQUIRE(rec2.get_y_start() == Approx(7));
+	REQUIRE(rec2.get_width() == Approx(4)); 
+	REQUIRE(rec2.get_height() == Approx(6)); 
+} 
+
+TEST_CASE("describe_circumference_circle","[circumference_circle]") 
+{ 
+	Circle c{5};
+	Circle clr{1,1,3};
+	REQUIRE(c.circumference() == Approx(2*M_PI*5)); 
+	REQUIRE(clr.circumference() == Approx(2*M_PI*3)); 
+} 
+
+TEST_CASE("describe_circumference_rec","[circumference_rec]") 
+{ 
+	Rectangle rec{3,4};
+	Rectangle rec2{3,3,5,5};
+	REQUIRE(rec.circumference() == Approx(14)); 
+	REQUIRE(rec2.circumference() == Approx(20)); 
+} 
+
+
+
+
 
 int main(int argc, char *argv[])
 {
