@@ -1,16 +1,19 @@
 #include "circle.hpp"
 #include <iostream>
 #include <cmath>
+#include "color.hpp"
 
 Circle::Circle(float r) :
 x_position{0.0},
 y_position{0.0},
-radius{r} {}
+radius{r},
+clr_{0.0} {}
 
-Circle::Circle(float a, float b, float r) :
+Circle::Circle(float a, float b, float r, Color const& clr) :
 x_position{a},
 y_position{b},
-radius{r} {}
+radius{r},
+clr_{clr} {}
 
 float Circle::circumference() const
 {
@@ -28,4 +31,8 @@ float Circle::get_y_position() const
 float Circle::get_radius() const
 {
 	return radius;
+}
+Color Circle::get_Color() const&
+{
+	return clr_;
 }

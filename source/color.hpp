@@ -3,7 +3,6 @@
 
 struct Color
 {
-
 	Color(float f);
 	Color(float x, float y, float z);
 

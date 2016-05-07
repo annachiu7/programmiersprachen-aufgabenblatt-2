@@ -214,18 +214,19 @@ TEST_CASE("describe_mat2_rotation","[mat2_rotation]")
 TEST_CASE("describe_circle","[create_circle]") 
 { 
 	Circle c{5};
-	Circle clr{1,1,3};
+	Circle clr{1,1,3,{0.5,0.6,0.7}};
 	REQUIRE(c.get_x_position() == Approx(0.0)); 
 	REQUIRE(c.get_y_position() == Approx(0.0)); 
 	REQUIRE(c.get_radius() == Approx(5.0)); 
 	REQUIRE(clr.get_x_position() == Approx(1.0)); 
 	REQUIRE(clr.get_y_position() == Approx(1.0)); 
-	REQUIRE(clr.get_radius() == Approx(3.0)); } 
+	REQUIRE(clr.get_radius() == Approx(3.0)); 
+} 
 
 TEST_CASE("describe_rectangle","[create_rectangle]") 
 { 
 	Rectangle rec{5, 8};
-	Rectangle rec2{-3, 7, 4, 6};
+	Rectangle rec2{-3, 7, 4, 6, {0.0}};
 	REQUIRE(rec.get_x_start() == Approx(0)); 
 	REQUIRE(rec.get_y_start() == Approx(0)); 
 	REQUIRE(rec.get_width() == Approx(5)); 
@@ -239,7 +240,7 @@ TEST_CASE("describe_rectangle","[create_rectangle]")
 TEST_CASE("describe_circumference_circle","[circumference_circle]") 
 { 
 	Circle c{5};
-	Circle clr{1,1,3};
+	Circle clr{1,1,3,{0.0}};
 	REQUIRE(c.circumference() == Approx(2*M_PI*5)); 
 	REQUIRE(clr.circumference() == Approx(2*M_PI*3)); 
 } 
@@ -247,7 +248,7 @@ TEST_CASE("describe_circumference_circle","[circumference_circle]")
 TEST_CASE("describe_circumference_rec","[circumference_rec]") 
 { 
 	Rectangle rec{3,4};
-	Rectangle rec2{3,3,5,5};
+	Rectangle rec2{3,3,5,5,{0.0}};
 	REQUIRE(rec.circumference() == Approx(14)); 
 	REQUIRE(rec2.circumference() == Approx(20)); 
 } 

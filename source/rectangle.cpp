@@ -1,18 +1,21 @@
 #include "rectangle.hpp"
 #include <iostream>
+#include "color.hpp"
 
 Rectangle::Rectangle(float w, float h) :
 x_start{0.0},
 y_start{0.0},
 width{w},
-height{h} {}
+height{h},
+clr_{0.0} {}
 
 
-Rectangle::Rectangle(float x, float y, float w, float h) :
+Rectangle::Rectangle(float x, float y, float w, float h, Color const& clr) :
 x_start{x},
 y_start{y},
 width{w},
-height{h} {}
+height{h},
+clr_{clr} {}
 
 float Rectangle::circumference() const
 {
@@ -34,4 +37,8 @@ float Rectangle::get_width() const
 float Rectangle::get_height() const
 {
 	return height;
+}
+Color Rectangle::get_Color() const&
+{
+	return clr_;
 }
