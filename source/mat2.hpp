@@ -14,7 +14,7 @@ public:
 	float c;
 	float d;
 
-	//float det() const;
+	float det() const;
 
 	Mat2& operator *=( Mat2 const & m );
 

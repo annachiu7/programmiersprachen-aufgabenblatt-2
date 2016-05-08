@@ -42,12 +42,12 @@ Mat2 operator *( Mat2 const & m1 , Mat2 const & m2 )
 }
 
 ////////////////////////////////////////////////////////
-/*
-float Mat2::det()
+
+float Mat2::det() const
 {
 	return a*d - b*c;
 }
-*/
+
 Vec2 operator *( Mat2 const & m , Vec2 const & v )
 {
 	return Vec2{m.a * v.x + m.b * v.y,
@@ -65,6 +65,7 @@ Mat2 inverse(Mat2 const& m)
 
 	if(m.a * m.d - m.b * m.c == 0)
 	{
+		// wenn der Derterminant gleich 0 ist, gibt es keine Inverse!
 		return Mat2{0,0,0,0};
 	}
 	else	

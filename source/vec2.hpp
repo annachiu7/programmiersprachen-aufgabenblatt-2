@@ -6,11 +6,12 @@ class Vec2
 {
 public:
 	Vec2();  // default constructor
-	Vec2(float a, float b);
+	Vec2(float a, float b); // user constructors
 
 	float x;
 	float y;
 
+	//member function
 	Vec2& operator+=(Vec2 const& v);
 	Vec2& operator-=(Vec2 const& v);
 	Vec2& operator*=(float v);
