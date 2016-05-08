@@ -146,6 +146,16 @@ TEST_CASE("describe_mult_mat2","[mult_mat2]")
 	REQUIRE(m6.d == 7.0f); 
 }
 
+TEST_CASE("describe_mat2_det","[determinant_mat2]") 
+{ 
+	Mat2 m_einheit;
+	Mat2 m1{1.0f,1.0f,1.0f,1.0f};
+	Mat2 m2{1.0f,2.0f,3.0f,4.0f};
+	REQUIRE(m_einheit.det() == Approx(1));
+	REQUIRE(m1.det() == Approx(0));
+	REQUIRE(m2.det() == Approx(-2));
+}
+
 TEST_CASE("describe_mat2_mult_vec2","[mat2_mult_vec2]") 
 { 
 	Mat2 m_einheit;
@@ -210,7 +220,7 @@ TEST_CASE("describe_mat2_rotation","[mat2_rotation]")
 	REQUIRE(m2.c == Approx(0.5)); 
 	REQUIRE(m2.d == Approx(0.86603f)); 
 } 
-
+/*
 TEST_CASE("describe_circle","[create_circle]") 
 { 
 	Circle c{5};
@@ -221,6 +231,7 @@ TEST_CASE("describe_circle","[create_circle]")
 	REQUIRE(clr.get_x_position() == Approx(1.0)); 
 	REQUIRE(clr.get_y_position() == Approx(1.0)); 
 	REQUIRE(clr.get_radius() == Approx(3.0)); 
+	REQUIRE(clr.get_Color().r == Approx(0.5)); 
 } 
 
 TEST_CASE("describe_rectangle","[create_rectangle]") 
@@ -253,8 +264,33 @@ TEST_CASE("describe_circumference_rec","[circumference_rec]")
 	REQUIRE(rec2.circumference() == Approx(20)); 
 } 
 
+TEST_CASE("describe_is_inside_circle", "[is_inside_circle]")
+{
+	Circle c{5};
+	Circle clr{1,1,3,{0.0}};
+	Vec2 v1{};
+	Vec2 v2{5.0,0.0};
+	REQUIRE(c.is_inside(v1) == true);
+	REQUIRE(c.is_inside(v2) == true);
+	REQUIRE(clr.is_inside(v1) == true);
+	REQUIRE(clr.is_inside(v2) == false);
+}
 
+TEST_CASE("describe_is_inside_rec", "[is_inside_rec]")
+{
+	Rectangle rec1{3,2};
+	Rectangle rec2{5,8,1,2,{0.0}};
+	Vec2 v1{};
+	Vec2 v2{9.0,9.0};
+	Vec2 v3{6.0,8.0};
+	REQUIRE(rec1.is_inside(v1) == true);
+	REQUIRE(rec1.is_inside(v2) == false);
+	REQUIRE(rec2.is_inside(v1) == false);
+	REQUIRE(rec2.is_inside(v2) == false);
+	REQUIRE(rec2.is_inside(v3) == true);
+}
 
+*/
 int main(int argc, char *argv[])
 {
   return Catch::Session().run(argc, argv);

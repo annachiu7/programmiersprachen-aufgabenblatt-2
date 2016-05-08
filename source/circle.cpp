@@ -53,17 +53,20 @@ Vec2 Circle::get_Center() const&
 	return center_;
 }
 
+// setter(color)
+void Circle::set_Color(Color const& clr)
+{
+	clr_ = clr;
+}
 
 // draw-method
 void Circle::draw(Window const& win) const
 {
-	Vec2 begin_point = make_rotation_mat2(0) * Vec2(0,get_radius()) + get_Center();
-	Vec2 end_point;
-	for (int i = 0; i < 360; ++i)
-	{
-		end_point = make_rotation_mat2(i/360*2*M_PI) * Vec2(0,get_radius()) + get_Center();
-		win.draw_line(begin_point.x, begin_point.y, end_point.x, end_point.y, 1.0, 1.0, 1.0);
-		begin_point = end_point;
+	for (int i = 0; i <= 360 ; ++i)
+	{	
+		Vec2 begin_point = make_rotation_mat2(2*M_PI*i/360) * Vec2(get_radius(),0) + get_Center();
+		Vec2 end_point = make_rotation_mat2(2*M_PI*(i+1)/360) * Vec2(get_radius(),0) + get_Center();
+		win.draw_line(begin_point.x, begin_point.y, end_point.x, end_point.y, 0, 0, 0);
 	}
 }
 
@@ -71,12 +74,22 @@ void Circle::draw(Window const& win) const
 // draw-method with color
 void Circle::draw(Window const& win, Color const& clr) const
 {
-	Vec2 begin_point = make_rotation_mat2(0) * Vec2(0,get_radius()) + get_Center();
-	Vec2 end_point;
-	for (int i = 0; i < 360; ++i)
+	for (int i = 0; i <= 360 ; ++i)
 	{
-		end_point = make_rotation_mat2(i/360*2*M_PI) * Vec2(0,get_radius()) + get_Center();
+		Vec2 begin_point = make_rotation_mat2(2*M_PI*i/360) * Vec2(get_radius(),0) + get_Center();
+		Vec2 end_point = make_rotation_mat2(2*M_PI*(i+1)/360) * Vec2(get_radius(),0) + get_Center();
 		win.draw_line(begin_point.x, begin_point.y, end_point.x, end_point.y, clr.r, clr.g, clr.b);
-		begin_point = end_point;
 	}
+}
+
+
+//is_inside
+bool Circle::is_inside(Vec2 const& point) const
+{
+	if (sqrt((point.x - get_Center().x)*(point.x - get_Center().x)
+			+(point.y - get_Center().y)*(point.y - get_Center().y)) <= get_radius())
+	{
+		return true;
+	}
+	return false;
 }
