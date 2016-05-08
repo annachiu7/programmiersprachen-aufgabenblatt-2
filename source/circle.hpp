@@ -21,6 +21,7 @@ public:
 
 	
 	void draw(Window const& win) const;
+	void draw(Window const& win, Color const& clr) const;
 
 private:
 	float x_position;

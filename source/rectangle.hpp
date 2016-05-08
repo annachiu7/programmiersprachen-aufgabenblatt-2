@@ -21,6 +21,7 @@ public:
 	Vec2 get_StartPoint() const&;
 
 	void draw_line(Window const& win) const;
+	void draw_line(Window const& win, Color const& clr) const;
 
 private:
 	float x_start;

@@ -5,6 +5,9 @@
 #include "window.hpp"
 #include "mat2.hpp"
 #include "vec2.hpp"
+#include <utility>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 Circle::Circle(float r) :
 x_position{0.0},
@@ -60,6 +63,20 @@ void Circle::draw(Window const& win) const
 	{
 		end_point = make_rotation_mat2(i/360*2*M_PI) * Vec2(0,get_radius()) + get_Center();
 		win.draw_line(begin_point.x, begin_point.y, end_point.x, end_point.y, 1.0, 1.0, 1.0);
+		begin_point = end_point;
+	}
+}
+
+
+// draw-method with color
+void Circle::draw(Window const& win, Color const& clr) const
+{
+	Vec2 begin_point = make_rotation_mat2(0) * Vec2(0,get_radius()) + get_Center();
+	Vec2 end_point;
+	for (int i = 0; i < 360; ++i)
+	{
+		end_point = make_rotation_mat2(i/360*2*M_PI) * Vec2(0,get_radius()) + get_Center();
+		win.draw_line(begin_point.x, begin_point.y, end_point.x, end_point.y, clr.r, clr.g, clr.b);
 		begin_point = end_point;
 	}
 }
