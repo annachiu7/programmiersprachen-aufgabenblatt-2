@@ -20,11 +20,11 @@ int main(int argc, char* argv[])
     float x1{0.5f + 0.4f * std::sin(t*M_PI/30)};
     float y1{0.5f + 0.4f * std::cos(t*M_PI/30)};
 
-    float x2{0.5f + 0.4f * std::sin(t*M_PI/30/60)};
-    float y2{0.5f + 0.4f * std::cos(t*M_PI/30/60)};
+    float x2{0.5f + 0.3f * std::sin(t*M_PI/30/60)};
+    float y2{0.5f + 0.3f * std::cos(t*M_PI/30/60)};
 
-    float x3{0.5f + 0.4f * std::sin(t*M_PI/30/60/60)};
-    float y3{0.5f + 0.4f * std::cos(t*M_PI/30/60/60)};
+    float x3{0.5f + 0.2f * std::sin(t*M_PI/30/60/60)};
+    float y3{0.5f + 0.2f * std::cos(t*M_PI/30/60/60)};
 
     win.draw_point(x1, y1, 1.0f, 0.0f, 0.0f);
     win.draw_point(x2, y2, 0.0f, 1.0f, 0.0f);
