@@ -220,7 +220,7 @@ TEST_CASE("describe_mat2_rotation","[mat2_rotation]")
 	REQUIRE(m2.c == Approx(0.5)); 
 	REQUIRE(m2.d == Approx(0.86603f)); 
 } 
-/*
+
 TEST_CASE("describe_circle","[create_circle]") 
 { 
 	Circle c{5};
@@ -290,7 +290,7 @@ TEST_CASE("describe_is_inside_rec", "[is_inside_rec]")
 	REQUIRE(rec2.is_inside(v3) == true);
 }
 
-*/
+
 int main(int argc, char *argv[])
 {
   return Catch::Session().run(argc, argv);
